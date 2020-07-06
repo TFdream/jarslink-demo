@@ -47,6 +47,10 @@ public class ModuleController {
                 //根据昵称查询
                 result = moduleInstance.doAction(action, para);
                 break;
+            case "user-query":
+                //根据昵称查询
+                result = moduleInstance.doAction(action, para);
+                break;
             default:
                 break;
         }

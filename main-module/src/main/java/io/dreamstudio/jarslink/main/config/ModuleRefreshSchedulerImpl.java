@@ -4,6 +4,7 @@ import com.alipay.jarslink.api.ModuleConfig;
 import com.alipay.jarslink.api.impl.AbstractModuleRefreshScheduler;
 import com.google.common.collect.ImmutableList;
 
+import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
@@ -23,17 +24,17 @@ public class ModuleRefreshSchedulerImpl extends AbstractModuleRefreshScheduler {
     }
 
     private ModuleConfig buildUserServiceModuleConfig() {
-        return buildModuleConfig("user-service", VERSION, PROJECT_DIR + "user-service/target/user-service-1.0.0-SNAPSHOT.jar");
+        return buildModuleConfig("user-service", VERSION, new File(PROJECT_DIR, "user-service/target/user-service-1.0.0-SNAPSHOT.jar"));
     }
 
     private ModuleConfig buildOrderServiceModuleConfig() {
-        return buildModuleConfig("order-service", VERSION, PROJECT_DIR + "order-service/target/order-service-1.0.0-SNAPSHOT.jar");
+        return buildModuleConfig("order-service", VERSION, new File(PROJECT_DIR, "order-service/target/order-service-1.0.0-SNAPSHOT.jar"));
     }
 
-    private ModuleConfig buildModuleConfig(String moduleName, String version, String jarPath) {
+    private ModuleConfig buildModuleConfig(String moduleName, String version, File jarFile) {
         ModuleConfig moduleConfig = new ModuleConfig();
         try {
-            URL demoModule = new URL("file", "", -1, jarPath);
+            URL demoModule = new URL(jarFile.toURI().toString());
             moduleConfig.setName(moduleName);
             moduleConfig.setEnabled(true);
             moduleConfig.setVersion(version);
